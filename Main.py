@@ -18,8 +18,8 @@ from sklearn.metrics import f1_score
 import seaborn as sns
 
 import cv2
+
 from tensorflow.keras.utils import to_categorical
-# from keras.utils.np_utils import to_categorical
 from keras.layers import  MaxPooling2D
 from keras.layers import Dense, Dropout, Activation, Flatten, GlobalAveragePooling2D, BatchNormalization
 from keras.layers import Convolution2D
@@ -41,7 +41,7 @@ from keras.applications import InceptionV3
 
 
 main = Tk()
-main.title("Medical Image Classification using Deep Convolutional Neural Networks for Disease Diagnosis")
+main.title("Medical Image Classification using Deep Convolutional Neural Networks - An X-ray Classification")
 main.geometry("1300x1200")
 
 global filename
@@ -71,7 +71,7 @@ def uploadDataset():
     text.delete('1.0', END)
     filename = filedialog.askdirectory(initialdir=".") #upload dataset file
     text.insert(END,filename+" loaded\n\n")
-    if os.path.exists('/Users/srihimamshu/Desktop/firstcode/model/X.txt.npy'):
+    if os.path.exists('model/X.txt.npy'):
         X = np.load('model/X.txt.npy')
         Y = np.load('model/Y.txt.npy')
     else:
@@ -348,7 +348,7 @@ def graph():
     plt.plot(resnet_acc, 'ro-', color = 'black')
     plt.plot(dense_acc, 'ro-', color = 'red')
     plt.plot(inception_acc, 'ro-', color = 'magenta')
-    plt.legend(['VGG16', 'VGG19','Resnet50','DenseNet201', 'Inception V3'], loc='upper left')
+    plt.legend(['VGG16', 'CapsuleNet','Support Vector Machine','DenseNet201', 'Inception V3'], loc='upper left')
     plt.title('All Algorithm Training Accuracy Graph')
     plt.show()
 
@@ -375,7 +375,7 @@ def close():
     main.destroy()
 
 font = ('times', 16, 'bold')
-title = Label(main, text='Medical Image Classification using Deep Convolutional Neural Networks for Disease Diagnosis')
+title = Label(main, text='Medical Image Classification using Deep Convolutional Neural Networks - An X-ray Classification')
 title.config(bg='gold2', fg='thistle1')  
 title.config(font=font)           
 title.config(height=3, width=120)       
@@ -424,6 +424,13 @@ predictButton.config(font=ff)
 closeButton = Button(main, text="Exit", command=close)
 closeButton.place(x=20,y=200)
 closeButton.config(font=ff)
+
+
+# 
+closeButton = Button(main, text="Close", command=close)
+closeButton.place(x=1200, y=150)
+closeButton.config(font=ff)
+
 
 font1 = ('times', 12, 'bold')
 text=Text(main,height=22,width=150)
